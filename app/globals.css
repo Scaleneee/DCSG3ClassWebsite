@@ -143,9 +143,9 @@ html.lenis body {
 
 .hero-sparks {
   top: clamp(4.5rem, 8svh, 6rem);
-  left: 0.75rem;
-  width: 9rem;
-  opacity: 0.92;
+  left: 1.25rem;
+  width: 10rem;
+  opacity: 1;
 }
 
 .hero-star {
@@ -199,10 +199,78 @@ html.lenis body {
   .hero-page-label {
     bottom: 0.85rem;
   }
+
+  /* Phone landscape gets a dedicated side-by-side profile window. */
+  .profile-overlay {
+    padding: 0.625rem;
+  }
+
+  .profile-dialog {
+    display: grid;
+    width: min(100%, 46rem);
+    max-height: calc(100svh - 1.25rem);
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    grid-template-rows: minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.625rem;
+  }
+
+  .profile-photo {
+    width: 100%;
+    height: calc(100svh - 2.5rem);
+    min-height: 0;
+    max-height: 22rem;
+    aspect-ratio: auto;
+  }
+
+  .profile-details {
+    min-height: 0;
+    padding: 2.5rem 0.75rem 0.75rem;
+  }
+
+  .profile-copy {
+    margin-top: auto;
+  }
+
+  .profile-name {
+    font-size: clamp(0.9rem, 2.4vw, 1.2rem);
+  }
 }
 @media (max-width: 639px) {
   .site-grid {
     background-size: 38px 38px;
+  }
+
+  /* Phone portrait uses its own compact card instead of a compressed desktop grid. */
+  .profile-overlay {
+    padding: 0.625rem;
+  }
+
+  .profile-dialog {
+    width: min(100%, 24rem);
+    max-height: calc(100svh - 1.25rem);
+    gap: 1.75rem;
+    border-radius: 1.4rem;
+  }
+
+  .profile-photo {
+    height: clamp(17rem, 45svh, 23rem);
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+
+  .profile-details {
+    min-height: 0;
+    padding: 0 0.75rem 1rem;
+  }
+
+  .profile-copy {
+    margin-top: 1.5rem;
+  }
+
+  .profile-name {
+    font-size: clamp(0.84rem, 4.1vw, 1rem);
+    line-height: 1.45;
   }
 }
 

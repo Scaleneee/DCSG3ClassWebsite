@@ -317,7 +317,7 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
       {selectedClassmate && (
         <div
           ref={overlayRef}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-white/35 p-3 opacity-0 backdrop-blur-xl sm:p-8"
+          className="profile-overlay fixed inset-0 z-50 flex items-center justify-center bg-white/35 p-3 opacity-0 backdrop-blur-xl sm:p-8"
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) closeProfile();
           }}
@@ -340,7 +340,7 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
               ×
             </button>
 
-            <div data-profile-photo className="aspect-[4/5] shrink-0 overflow-hidden rounded-[1.15rem] border border-zinc-950/80 bg-zinc-200">
+            <div data-profile-photo className="profile-photo aspect-[4/5] shrink-0 overflow-hidden rounded-[1.15rem] border border-zinc-950/80 bg-zinc-200">
               <img
                 src={selectedClassmate.photo}
                 alt={selectedClassmate.name}
@@ -348,12 +348,12 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
               />
             </div>
 
-            <div className="flex min-h-52 shrink-0 flex-col px-3 pb-5 sm:min-h-56 sm:px-2 sm:pb-5 sm:pt-10">
+            <div className="profile-details flex min-h-52 shrink-0 flex-col px-3 pb-5 sm:min-h-56 sm:px-2 sm:pb-5 sm:pt-10">
               <p data-profile-detail className="font-sans text-[0.65rem] uppercase tracking-[0.24em] text-zinc-500">
                 Student {String(selectedClassmate.id).padStart(2, "0")} / 26
               </p>
-              <div className="mt-8 sm:mt-auto">
-                <h3 data-profile-detail id="profile-name" className="font-display text-base font-medium uppercase leading-snug tracking-[-0.03em] sm:text-xl lg:text-2xl">
+              <div className="profile-copy mt-8 sm:mt-auto">
+                <h3 data-profile-detail id="profile-name" className="profile-name font-display text-base font-medium uppercase leading-snug tracking-[-0.03em] sm:text-xl lg:text-2xl">
                   {selectedClassmate.name}
                 </h3>
                 <p data-profile-detail id="profile-comment" className="mt-5 max-w-sm font-sans text-base leading-relaxed text-zinc-700">
