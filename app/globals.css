@@ -142,7 +142,7 @@ html.lenis body {
 }
 
 .hero-sparks {
-  top: clamp(4.5rem, 8svh, 6rem);
+  top: 1rem;
   left: 1.25rem;
   width: 10rem;
   opacity: 1;
