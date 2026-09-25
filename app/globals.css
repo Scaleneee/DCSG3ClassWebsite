@@ -223,6 +223,10 @@ html.lenis body {
     aspect-ratio: auto;
   }
 
+  .profile-photo img {
+    object-fit: contain;
+  }
+
   .profile-details {
     min-height: 0;
     padding: 2.5rem 0.75rem 0.75rem;
@@ -257,6 +261,10 @@ html.lenis body {
     height: clamp(17rem, 45svh, 23rem);
     min-height: 0;
     aspect-ratio: auto;
+  }
+
+  .profile-photo img {
+    object-fit: contain;
   }
 
   .profile-details {
