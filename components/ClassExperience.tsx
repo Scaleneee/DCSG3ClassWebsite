@@ -198,30 +198,30 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
       />
       <div aria-hidden="true" className="site-grid" />
 
-      <section className="hero-panel relative flex min-h-[100svh] items-center justify-center px-6 py-20">
+      <section className="hero-panel phone-hero relative flex min-h-[100svh] items-center justify-center px-6 py-20">
         <img
           data-float="spark"
           src="./decor/chrome-sparks.jpg"
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute -left-24 -top-8 w-40 opacity-75 mix-blend-multiply sm:left-[4%] sm:top-[7%] sm:w-64 sm:opacity-100 lg:w-80"
+          className="hero-sparks"
         />
         <img
           data-float="star"
           src="./decor/chrome-star.jpg"
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute -right-16 bottom-[4%] w-52 rotate-12 mix-blend-multiply sm:right-[3%] sm:w-72 lg:w-96"
+          className="hero-star"
         />
 
-        <div className="relative z-10 flex flex-col items-center text-center">
+        <div className="hero-content relative z-10 flex flex-col items-center text-center">
           <div data-intro-mark className="mb-6 flex items-center gap-3 font-sans text-[0.68rem] font-medium uppercase tracking-[0.28em] text-zinc-500">
             <span className="h-px w-8 bg-zinc-400" />
             Diploma in Computer Science
             <span className="h-px w-8 bg-zinc-400" />
           </div>
 
-          <h1 className="perspective-1000 flex overflow-hidden font-display text-[clamp(3.35rem,15vw,10rem)] font-medium leading-none tracking-[-0.1em]">
+          <h1 className="hero-logo perspective-1000 flex overflow-hidden font-display text-[clamp(3.35rem,15vw,10rem)] font-medium leading-none tracking-[-0.1em]">
             {logoCharacters.map((character, index) => (
               <span data-logo-character key={`${character}-${index}`} className="inline-block">
                 {character}
@@ -244,10 +244,10 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
           </button>
         </div>
 
-        <p className="absolute bottom-7 left-7 font-sans text-[0.65rem] uppercase tracking-[0.25em] text-zinc-500 sm:left-10">
+        <p className="hero-scroll-label absolute bottom-7 left-7 font-sans text-[0.65rem] uppercase tracking-[0.25em] text-zinc-500 sm:left-10">
           Scroll to enter
         </p>
-        <p className="absolute bottom-7 right-7 font-sans text-[0.65rem] uppercase tracking-[0.25em] text-zinc-500 sm:right-10">
+        <p className="hero-page-label absolute bottom-7 right-7 font-sans text-[0.65rem] uppercase tracking-[0.25em] text-zinc-500 sm:right-10">
           01 / 02
         </p>
       </section>
@@ -274,7 +274,7 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
           </div>
         </header>
 
-        <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-8 sm:gap-y-16 lg:grid-cols-4 lg:gap-x-6">
+        <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-16 lg:grid-cols-4 lg:gap-x-6">
           {classmates.map((classmate, index) => (
             <article data-student-card key={classmate.id} className="student-card opacity-0">
               <button
@@ -317,7 +317,7 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
       {selectedClassmate && (
         <div
           ref={overlayRef}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-white/35 p-5 opacity-0 backdrop-blur-xl sm:p-8"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-white/35 p-3 opacity-0 backdrop-blur-xl sm:p-8"
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) closeProfile();
           }}
@@ -328,7 +328,7 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
             aria-modal="true"
             aria-labelledby="profile-name"
             aria-describedby="profile-comment"
-            className="profile-dialog relative grid max-h-[90svh] w-full max-w-xl grid-cols-1 grid-rows-[auto_auto] gap-y-8 overflow-y-auto rounded-[1.75rem] border border-zinc-950/80 p-3 opacity-0 shadow-[0_30px_100px_rgba(0,0,0,0.28)] sm:grid-cols-[0.9fr_1.1fr] sm:grid-rows-1 sm:gap-x-6 sm:gap-y-0 sm:p-4"
+            className="profile-dialog relative flex max-h-[calc(100svh-1.5rem)] w-full max-w-xl flex-col gap-9 overflow-y-auto rounded-[1.5rem] border border-zinc-950/80 p-3 opacity-0 shadow-[0_30px_100px_rgba(0,0,0,0.28)] sm:grid sm:grid-cols-[0.9fr_1.1fr] sm:grid-rows-1 sm:gap-x-6 sm:gap-y-0 sm:rounded-[1.75rem] sm:p-4"
           >
             <button
               ref={closeButtonRef}
@@ -340,7 +340,7 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
               ×
             </button>
 
-            <div data-profile-photo className="aspect-[4/5] overflow-hidden rounded-[1.15rem] border border-zinc-950/80 bg-zinc-200">
+            <div data-profile-photo className="aspect-[4/5] shrink-0 overflow-hidden rounded-[1.15rem] border border-zinc-950/80 bg-zinc-200">
               <img
                 src={selectedClassmate.photo}
                 alt={selectedClassmate.name}
@@ -348,12 +348,12 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
               />
             </div>
 
-            <div className="flex min-h-56 flex-col px-3 pb-4 sm:px-2 sm:pb-5 sm:pt-10">
+            <div className="flex min-h-52 shrink-0 flex-col px-3 pb-5 sm:min-h-56 sm:px-2 sm:pb-5 sm:pt-10">
               <p data-profile-detail className="font-sans text-[0.65rem] uppercase tracking-[0.24em] text-zinc-500">
                 Student {String(selectedClassmate.id).padStart(2, "0")} / 26
               </p>
               <div className="mt-8 sm:mt-auto">
-                <h3 data-profile-detail id="profile-name" className="font-display text-lg font-medium uppercase leading-snug tracking-[-0.035em] sm:text-2xl">
+                <h3 data-profile-detail id="profile-name" className="font-display text-base font-medium uppercase leading-snug tracking-[-0.03em] sm:text-xl lg:text-2xl">
                   {selectedClassmate.name}
                 </h3>
                 <p data-profile-detail id="profile-comment" className="mt-5 max-w-sm font-sans text-base leading-relaxed text-zinc-700">

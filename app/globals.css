@@ -107,6 +107,8 @@ img {
   background:
     linear-gradient(135deg, rgb(255 255 255 / 96%), rgb(217 219 222 / 91%) 48%, rgb(255 255 255 / 96%));
   isolation: isolate;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .profile-dialog::before {
@@ -132,6 +134,72 @@ html.lenis body {
   overflow: clip;
 }
 
+.hero-sparks,
+.hero-star {
+  position: absolute;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+.hero-sparks {
+  top: clamp(4.5rem, 8svh, 6rem);
+  left: 0.75rem;
+  width: 9rem;
+  opacity: 0.92;
+}
+
+.hero-star {
+  right: -3.75rem;
+  bottom: 7svh;
+  width: 13rem;
+  rotate: 12deg;
+}
+
+@media (min-width: 640px) {
+  .hero-sparks {
+    top: 7%;
+    left: 4%;
+    width: 16rem;
+    opacity: 1;
+  }
+
+  .hero-star {
+    right: 3%;
+    bottom: 4%;
+    width: 18rem;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 34rem) {
+  .phone-hero {
+    padding-block: 1rem;
+  }
+
+  .hero-content {
+    scale: 0.82;
+  }
+
+  .hero-logo {
+    font-size: clamp(3.25rem, 18svh, 5rem);
+  }
+
+  .hero-sparks {
+    top: 0.5rem;
+    left: 0.75rem;
+    width: 7rem;
+  }
+
+  .hero-star {
+    right: -1.5rem;
+    bottom: -2.5rem;
+    width: 10.5rem;
+  }
+
+  .hero-scroll-label,
+  .hero-page-label {
+    bottom: 0.85rem;
+  }
+}
 @media (max-width: 639px) {
   .site-grid {
     background-size: 38px 38px;
