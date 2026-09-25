@@ -17,11 +17,43 @@ type ClassExperienceProps = {
 
 const logoCharacters = Array.from("DCSG3");
 
+// A temporary fixed image connects the tapped portrait to the modal photo.
+function createFlyingPhoto(photo: string, bounds: DOMRect) {
+  const image = document.createElement("img");
+
+  image.src = photo;
+  image.alt = "";
+  image.setAttribute("aria-hidden", "true");
+  Object.assign(image.style, {
+    position: "fixed",
+    left: `${bounds.left}px`,
+    top: `${bounds.top}px`,
+    width: `${bounds.width}px`,
+    height: `${bounds.height}px`,
+    zIndex: "70",
+    display: "block",
+    boxSizing: "border-box",
+    objectFit: "contain",
+    objectPosition: "center",
+    pointerEvents: "none",
+    border: "1px solid rgb(24 24 27 / 80%)",
+    borderRadius: "1.2rem",
+    background: "rgb(228 228 231)",
+    boxShadow: "0 24px 70px rgb(0 0 0 / 20%)",
+    willChange: "left, top, width, height, border-radius",
+  });
+
+  document.body.appendChild(image);
+  return image;
+}
+
 export function ClassExperience({ classmates }: ClassExperienceProps) {
   const pageRef = useRef<HTMLElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const sourcePhotoBoundsRef = useRef<DOMRect | null>(null);
+  const flyingPhotoRef = useRef<HTMLImageElement | null>(null);
   const lastTriggerRef = useRef<HTMLButtonElement | null>(null);
   const [selectedClassmate, setSelectedClassmate] = useState<Classmate | null>(null);
   const [isClosing, setIsClosing] = useState(false);
@@ -111,41 +143,73 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
       const dialog = dialogRef.current;
       if (!dialog) return;
 
-      const profilePhoto = dialog.querySelector("[data-profile-photo]");
-      const profileDetails = dialog.querySelectorAll("[data-profile-detail]");
+      const profilePhoto = dialog.querySelector<HTMLElement>("[data-profile-photo]");
+      const profileDetails = dialog.querySelectorAll<HTMLElement>("[data-profile-detail]");
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      gsap
-        .timeline()
+      if (prefersReducedMotion || !profilePhoto) {
+        gsap.set([overlayRef.current, dialog, profilePhoto, profileDetails], { opacity: 1 });
+        return;
+      }
+
+      const sourceBounds = sourcePhotoBoundsRef.current;
+      const targetBounds = profilePhoto.getBoundingClientRect();
+      const flyingPhoto = sourceBounds ? createFlyingPhoto(selectedClassmate.photo, sourceBounds) : null;
+      flyingPhotoRef.current = flyingPhoto;
+
+      if (flyingPhoto) gsap.set(profilePhoto, { opacity: 0 });
+
+      const openingTimeline = gsap.timeline({
+        onComplete: () => {
+          gsap.set(profilePhoto, { opacity: 1 });
+          flyingPhoto?.remove();
+          if (flyingPhotoRef.current === flyingPhoto) flyingPhotoRef.current = null;
+        },
+      });
+
+      openingTimeline
         .fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3 })
         .fromTo(
           dialog,
-          { opacity: 0, y: 42, scale: 0.76, rotateX: 9, filter: "blur(10px)" },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            rotateX: 0,
-            filter: "blur(0px)",
-            duration: 0.68,
-            ease: "back.out(1.7)",
-          },
-          "-=0.16",
-        )
-        .fromTo(
-          profilePhoto,
-          { clipPath: "inset(45% 0 45% 0 round 1.15rem)" },
-          { clipPath: "inset(0% 0 0% 0 round 1.15rem)", duration: 0.52, ease: "power3.out" },
-          "-=0.42",
-        )
-        .fromTo(
-          profileDetails,
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, stagger: 0.07, duration: 0.4, ease: "power2.out" },
-          "-=0.28",
+          { opacity: 0, scale: 0.97 },
+          { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" },
+          0,
         );
+
+      if (flyingPhoto) {
+        openingTimeline.to(
+          flyingPhoto,
+          {
+            left: targetBounds.left,
+            top: targetBounds.top,
+            width: targetBounds.width,
+            height: targetBounds.height,
+            borderRadius: "1.15rem",
+            duration: 0.72,
+            ease: "power4.inOut",
+          },
+          0,
+        );
+      } else {
+        openingTimeline.fromTo(
+          profilePhoto,
+          { opacity: 0, scale: 0.86 },
+          { opacity: 1, scale: 1, duration: 0.55, ease: "power3.out" },
+          0,
+        );
+      }
+
+      openingTimeline.fromTo(
+        profileDetails,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, stagger: 0.07, duration: 0.4, ease: "power2.out" },
+        0.4,
+      );
     });
 
     return () => {
+      flyingPhotoRef.current?.remove();
+      flyingPhotoRef.current = null;
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", closeOnEscape);
     };
@@ -166,6 +230,8 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
 
   const openProfile = (classmate: Classmate, trigger: HTMLButtonElement) => {
     lastTriggerRef.current = trigger;
+    sourcePhotoBoundsRef.current =
+      trigger.querySelector<HTMLElement>(".portrait-frame")?.getBoundingClientRect() ?? trigger.getBoundingClientRect();
     setSelectedClassmate(classmate);
   };
 
@@ -173,17 +239,58 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
     if (!selectedClassmate || isClosing) return;
     setIsClosing(true);
 
+    const dialog = dialogRef.current;
+    const profilePhoto = dialog?.querySelector<HTMLElement>("[data-profile-photo]");
+    const profileDetails = dialog?.querySelectorAll<HTMLElement>("[data-profile-detail]");
+    const sourceBounds =
+      lastTriggerRef.current?.querySelector<HTMLElement>(".portrait-frame")?.getBoundingClientRect() ??
+      sourcePhotoBoundsRef.current;
+    const targetBounds = profilePhoto?.getBoundingClientRect();
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const finishClosing = () => {
+      flyingPhotoRef.current?.remove();
+      flyingPhotoRef.current = null;
+      setSelectedClassmate(null);
+      setIsClosing(false);
+      requestAnimationFrame(() => lastTriggerRef.current?.focus());
+    };
+
+    if (prefersReducedMotion) {
+      finishClosing();
+      return;
+    }
+
+    const flyingPhoto =
+      profilePhoto && targetBounds && sourceBounds ? createFlyingPhoto(selectedClassmate.photo, targetBounds) : null;
+    flyingPhotoRef.current = flyingPhoto;
+    if (flyingPhoto && profilePhoto) gsap.set(profilePhoto, { opacity: 0 });
+
     const timeline = gsap.timeline({
-      onComplete: () => {
-        setSelectedClassmate(null);
-        setIsClosing(false);
-        requestAnimationFrame(() => lastTriggerRef.current?.focus());
-      },
+      onComplete: finishClosing,
     });
 
+    timeline.to(profileDetails ?? [], { opacity: 0, y: 12, duration: 0.18, ease: "power2.in" }, 0);
+
+    if (flyingPhoto && sourceBounds) {
+      timeline.to(
+        flyingPhoto,
+        {
+          left: sourceBounds.left,
+          top: sourceBounds.top,
+          width: sourceBounds.width,
+          height: sourceBounds.height,
+          borderRadius: "1.2rem",
+          duration: 0.62,
+          ease: "power4.inOut",
+        },
+        0,
+      );
+    }
+
     timeline
-      .to(dialogRef.current, { opacity: 0, y: 22, scale: 0.94, duration: 0.25, ease: "power2.in" })
-      .to(overlayRef.current, { opacity: 0, duration: 0.2 }, "-=0.12");
+      .to(dialog, { opacity: 0, scale: 0.98, duration: 0.45, ease: "power2.inOut" }, 0.08)
+      .to(overlayRef.current, { opacity: 0, duration: 0.38, ease: "power2.in" }, 0.18);
   };
 
   return (
