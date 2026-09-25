@@ -108,12 +108,41 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
     document.addEventListener("keydown", closeOnEscape);
     requestAnimationFrame(() => {
       closeButtonRef.current?.focus();
-      gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.28 });
-      gsap.fromTo(
-        dialogRef.current,
-        { opacity: 0, y: 28, scale: 0.9, rotate: -1.5 },
-        { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.55, ease: "back.out(1.5)" },
-      );
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+
+      const profilePhoto = dialog.querySelector("[data-profile-photo]");
+      const profileDetails = dialog.querySelectorAll("[data-profile-detail]");
+
+      gsap
+        .timeline()
+        .fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3 })
+        .fromTo(
+          dialog,
+          { opacity: 0, y: 42, scale: 0.76, rotateX: 9, filter: "blur(10px)" },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            rotateX: 0,
+            filter: "blur(0px)",
+            duration: 0.68,
+            ease: "back.out(1.7)",
+          },
+          "-=0.16",
+        )
+        .fromTo(
+          profilePhoto,
+          { clipPath: "inset(45% 0 45% 0 round 1.15rem)" },
+          { clipPath: "inset(0% 0 0% 0 round 1.15rem)", duration: 0.52, ease: "power3.out" },
+          "-=0.42",
+        )
+        .fromTo(
+          profileDetails,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, stagger: 0.07, duration: 0.4, ease: "power2.out" },
+          "-=0.28",
+        );
     });
 
     return () => {
@@ -175,7 +204,7 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
           src="./decor/chrome-sparks.jpg"
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute -left-12 top-[7%] w-48 mix-blend-multiply sm:left-[4%] sm:w-64 lg:w-80"
+          className="pointer-events-none absolute -left-24 -top-8 w-40 opacity-75 mix-blend-multiply sm:left-[4%] sm:top-[7%] sm:w-64 sm:opacity-100 lg:w-80"
         />
         <img
           data-float="star"
@@ -299,7 +328,7 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
             aria-modal="true"
             aria-labelledby="profile-name"
             aria-describedby="profile-comment"
-            className="profile-dialog relative grid max-h-[90svh] w-full max-w-xl overflow-y-auto rounded-[1.75rem] border border-zinc-950/80 p-3 opacity-0 shadow-[0_30px_100px_rgba(0,0,0,0.28)] sm:grid-cols-[0.9fr_1.1fr] sm:gap-6 sm:p-4"
+            className="profile-dialog relative grid max-h-[90svh] w-full max-w-xl grid-cols-1 grid-rows-[auto_auto] gap-y-8 overflow-y-auto rounded-[1.75rem] border border-zinc-950/80 p-3 opacity-0 shadow-[0_30px_100px_rgba(0,0,0,0.28)] sm:grid-cols-[0.9fr_1.1fr] sm:grid-rows-1 sm:gap-x-6 sm:gap-y-0 sm:p-4"
           >
             <button
               ref={closeButtonRef}
@@ -311,7 +340,7 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
               ×
             </button>
 
-            <div className="aspect-[4/5] overflow-hidden rounded-[1.15rem] border border-zinc-950/80 bg-zinc-200">
+            <div data-profile-photo className="aspect-[4/5] overflow-hidden rounded-[1.15rem] border border-zinc-950/80 bg-zinc-200">
               <img
                 src={selectedClassmate.photo}
                 alt={selectedClassmate.name}
@@ -319,19 +348,21 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
               />
             </div>
 
-            <div className="flex min-h-56 flex-col justify-end px-3 pb-4 pt-8 sm:px-2 sm:pb-5 sm:pt-16">
-              <p className="mb-auto font-sans text-[0.65rem] uppercase tracking-[0.24em] text-zinc-500">
+            <div className="flex min-h-56 flex-col px-3 pb-4 sm:px-2 sm:pb-5 sm:pt-10">
+              <p data-profile-detail className="font-sans text-[0.65rem] uppercase tracking-[0.24em] text-zinc-500">
                 Student {String(selectedClassmate.id).padStart(2, "0")} / 26
               </p>
-              <h3 id="profile-name" className="mt-10 font-display text-2xl font-medium uppercase leading-tight tracking-[-0.04em] sm:text-3xl">
-                {selectedClassmate.name}
-              </h3>
-              <p id="profile-comment" className="mt-4 max-w-sm font-sans text-base leading-relaxed text-zinc-700">
-                {selectedClassmate.comment}
-              </p>
-              <div className="mt-7 flex items-center gap-3 text-zinc-400">
-                <span className="h-px flex-1 bg-current" />
-                <span className="font-display text-[0.6rem] tracking-[0.18em]">DCSG3</span>
+              <div className="mt-8 sm:mt-auto">
+                <h3 data-profile-detail id="profile-name" className="font-display text-lg font-medium uppercase leading-snug tracking-[-0.035em] sm:text-2xl">
+                  {selectedClassmate.name}
+                </h3>
+                <p data-profile-detail id="profile-comment" className="mt-5 max-w-sm font-sans text-base leading-relaxed text-zinc-700">
+                  {selectedClassmate.comment}
+                </p>
+                <div data-profile-detail className="mt-8 flex items-center gap-3 text-zinc-400">
+                  <span className="h-px flex-1 bg-current" />
+                  <span className="font-display text-[0.6rem] tracking-[0.18em]">DCSG3</span>
+                </div>
               </div>
             </div>
           </div>
