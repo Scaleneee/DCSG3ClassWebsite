@@ -6,7 +6,7 @@ This website was created to preserve the memories, friendships, and moments we s
 
 ## Website
 
-Live site: https://.github.io/DCSG3-Class-Website/](https://scaleneee.github.io/DCSG3ClassWebsite/
+Live site: https://scaleneee.github.io/DCSG3ClassWebsite/
 
 ## Built With
 
