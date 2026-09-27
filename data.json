@@ -41,29 +41,25 @@
       "title": "Third Semester End",
       "date": "14 MAY 2026",
       "comment": "Happy holiday guys, see you year 2!",
-      "photo": "./assets/sem3-end.jpeg",
-      "alt": "Students presenting a class project in a bright classroom"
+      "photo": "./assets/sem3-end.jpeg"
     },
     {
       "title": "Taco Gathering",
       "date": "27 JUNE 2026",
       "comment": "The taco so nice, but we make it better HAHAH.",
-      "photo": "./assets/taco-tgt.jpeg",
-      "alt": "Students presenting a class project in a bright classroom"
+      "photo": "./assets/taco-tgt.jpeg"
     },
     {
       "title": "First Civic Meeting",
       "date": "02 JULY 2026",
       "comment": "First meeting, so excited to sell taco.",
-      "photo": "./assets/first-civic-meet.jpeg",
-      "alt": "Classmates laughing together in a campus courtyard"
+      "photo": "./assets/first-civic-meet.jpeg"
     },
     {
       "title": "Tarcian Run",
       "date": "06 SEP 2026",
       "comment": "7KM of running, easy lah.",
-      "photo": "./assets/tarcian-run.jpeg",
-      "alt": "Classmates running together in a park"
+      "photo": "./assets/tarcian-run.jpeg"
     }
   
   ]

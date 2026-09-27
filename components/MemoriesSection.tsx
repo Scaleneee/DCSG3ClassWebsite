@@ -9,7 +9,6 @@ export type Memory = {
   date: string;
   comment: string;
   photo: string;
-  alt: string;
 };
 
 type MemoriesSectionProps = {
@@ -93,7 +92,7 @@ export function MemoriesSection({ memories }: MemoriesSectionProps) {
         .to(flash, { opacity: 1, duration: 0.07, ease: "steps(2)" }, "-=0.08")
         .call(() => {
           image.src = nextMemory.photo;
-          image.alt = nextMemory.alt;
+          image.alt = `${nextMemory.title} memory`;
           setActiveMemoryIndex(nextIndex);
         })
         .fromTo(flash, { opacity: 1 }, { opacity: 0.3, duration: 0.06, ease: "none" })
@@ -196,7 +195,7 @@ export function MemoriesSection({ memories }: MemoriesSectionProps) {
             <div className="crt-monitor">
               <div className="crt-screen-shell">
                 <div className="crt-screen">
-                  <img ref={imageRef} src={currentMemory.photo} alt={currentMemory.alt} draggable={false} />
+                  <img ref={imageRef} src={currentMemory.photo} alt={`${currentMemory.title} memory`} draggable={false} />
                   <div aria-hidden="true" className="crt-vignette" />
                   <div aria-hidden="true" className="crt-scanlines" />
                   <div ref={flashRef} aria-hidden="true" className="crt-channel-flash" />

@@ -9,7 +9,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 
 export const metadata: Metadata = {
-  title: "DCSG3 — Class of 2026",
+  title: "DCSG3 - 2025/2026",
   description: "Meet the people of DCSG3, class of 2025 / 2026.",
   icons: {
     icon: "./assets/favicon.png",
