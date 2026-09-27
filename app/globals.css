@@ -690,7 +690,14 @@ html.lenis body {
 /* Desktop keeps the full archive console visible within one viewport. */
 @media (min-width: 1024px) {
   .memories-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding-block: 3.5rem;
+  }
+
+  .memory-heading {
+    width: 100%;
   }
 
   .memory-heading h2 {
@@ -707,8 +714,9 @@ html.lenis body {
 
   .memory-console {
     display: grid;
-    max-width: 68rem;
-    grid-template-columns: minmax(16rem, 0.8fr) minmax(24rem, 1.2fr);
+    width: min(100%, 57rem);
+    max-width: none;
+    grid-template-columns: minmax(16rem, 28rem) 25rem;
     align-items: center;
     gap: 1.25rem 4rem;
     margin-top: 2rem;
@@ -725,7 +733,7 @@ html.lenis body {
 
   .memory-viewer {
     width: 100%;
-    max-width: 28rem;
+    max-width: 25rem;
     grid-row: 1 / span 2;
     grid-column: 2;
     margin-top: 0;
