@@ -687,6 +687,77 @@ html.lenis body {
   }
 }
 
+/* Desktop keeps the full archive console visible within one viewport. */
+@media (min-width: 1024px) {
+  .memories-section {
+    padding-block: 3.5rem;
+  }
+
+  .memory-heading h2 {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .memory-heading > p {
+    margin-bottom: 0.75rem;
+  }
+
+  .memory-heading > div {
+    margin-top: 1rem;
+  }
+
+  .memory-console {
+    display: grid;
+    max-width: 68rem;
+    grid-template-columns: minmax(16rem, 0.8fr) minmax(24rem, 1.2fr);
+    align-items: center;
+    gap: 1.25rem 4rem;
+    margin-top: 2rem;
+  }
+
+  .memory-copy,
+  .memory-comment {
+    text-align: left;
+  }
+
+  .memory-copy {
+    min-height: 0;
+  }
+
+  .memory-viewer {
+    width: 100%;
+    max-width: 28rem;
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    margin-top: 0;
+  }
+
+  .memory-comment {
+    min-height: 0;
+    max-width: 28rem;
+    margin: 0;
+  }
+
+  .crt-stage {
+    width: min(100%, 25rem);
+    padding-bottom: 2rem;
+  }
+
+  .crt-monitor {
+    padding: 0.8rem;
+    padding-bottom: 3rem;
+    border-radius: 1.4rem 1.4rem 0.7rem 0.7rem;
+  }
+
+  .memory-controls {
+    grid-template-columns: repeat(4, 3.25rem);
+    margin-top: 0.7rem;
+  }
+
+  .memory-control {
+    min-height: 2.8rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
