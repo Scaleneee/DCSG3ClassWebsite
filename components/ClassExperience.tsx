@@ -2,6 +2,8 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MemoriesSection, type Memory } from "@/components/MemoriesSection";
+export type { Memory } from "@/components/MemoriesSection";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 export type Classmate = {
@@ -13,6 +15,7 @@ export type Classmate = {
 
 type ClassExperienceProps = {
   classmates: Classmate[];
+  memories: Memory[];
 };
 
 const logoCharacters = Array.from("DCSG3");
@@ -47,7 +50,7 @@ function createFlyingPhoto(photo: string, bounds: DOMRect) {
   return image;
 }
 
-export function ClassExperience({ classmates }: ClassExperienceProps) {
+export function ClassExperience({ classmates, memories }: ClassExperienceProps) {
   const pageRef = useRef<HTMLElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -355,7 +358,7 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
           Scroll to enter
         </p>
         <p className="hero-page-label absolute bottom-7 right-7 font-sans text-[0.65rem] uppercase tracking-[0.25em] text-zinc-500 sm:right-10">
-          01 / 02
+          01 / 03
         </p>
       </section>
 
@@ -416,6 +419,8 @@ export function ClassExperience({ classmates }: ClassExperienceProps) {
         </div>
       </section>
 
+
+      <MemoriesSection memories={memories} />
       <footer className="flex items-center justify-between border-t border-zinc-950/20 px-6 py-7 font-sans text-[0.65rem] uppercase tracking-[0.22em] text-zinc-500 sm:px-10 lg:px-16">
         <span>DCSG3</span>
         <span>2025—2026</span>
