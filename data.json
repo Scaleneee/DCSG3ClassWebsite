@@ -38,24 +38,31 @@
   ],
   "memories": [
     {
-      "title": "The library takeover",
-      "date": "12 FEB 2026",
-      "comment": "One table became three, snacks appeared, and somehow the assignment was finished before closing time.",
-      "photo": "./assets/memory-library-color.png",
-      "alt": "Classmates studying and laughing around a library table"
+      "title": "Tarcian Run",
+      "date": "06 SEP 2026",
+      "comment": "7KM of running, easy lah.",
+      "photo": "./assets/tarcian-run.jpeg",
+      "alt": "Classmates running together in a park"
     },
     {
-      "title": "Between classes",
-      "date": "04 APR 2026",
-      "comment": "The walk back from lunch that turned into one of our favourite afternoons.",
-      "photo": "./assets/memory-campus-color.png",
+      "title": "First Civic Meeting",
+      "date": "02 JULY 2026",
+      "comment": "First meeting, so excited to sell taco.",
+      "photo": "./assets/first-civic-meet.jpeg",
       "alt": "Classmates laughing together in a campus courtyard"
     },
     {
-      "title": "Demo day",
-      "date": "28 JUN 2026",
-      "comment": "Nerves, last-minute fixes, and the proud silence right before the applause.",
-      "photo": "./assets/memory-demo-color.png",
+      "title": "Third Semester End",
+      "date": "14 MAY 2026",
+      "comment": "Happy holiday guys, see you year 2!",
+      "photo": "./assets/sem3-end.jpeg",
+      "alt": "Students presenting a class project in a bright classroom"
+    },
+    {
+      "title": "Taco Gathering",
+      "date": "14 MAY 2026",
+      "comment": "The taco so nice, but we make it better HAHAH.",
+      "photo": "./assets/taco-tgt.jpeg",
       "alt": "Students presenting a class project in a bright classroom"
     }
   ]
