@@ -117,7 +117,7 @@ export function MemoriesSection({ memories }: MemoriesSectionProps) {
   useEffect(() => {
     if (!isPlaying || memories.length < 2) return;
 
-    const timer = window.setInterval(() => changeMemory(1), 4500);
+    const timer = window.setInterval(() => changeMemory(1), 3000);
     return () => window.clearInterval(timer);
   }, [changeMemory, isPlaying, memories.length]);
 
@@ -232,7 +232,7 @@ export function MemoriesSection({ memories }: MemoriesSectionProps) {
         <div className="memory-comment mx-auto mt-8 max-w-xl text-center">
           <p className="font-sans text-sm leading-relaxed text-zinc-600 sm:text-base">{currentMemory.comment}</p>
           <p className="mt-4 font-display text-[0.58rem] uppercase tracking-[0.2em] text-zinc-400">
-            {isPlaying ? "Auto play · 4.5 sec" : "Manual playback"} · {String(activeMemoryIndex + 1).padStart(2, "0")} / {String(memories.length).padStart(2, "0")}
+            {isPlaying ? "Auto play · 3 sec" : "Manual playback"} · {String(activeMemoryIndex + 1).padStart(2, "0")} / {String(memories.length).padStart(2, "0")}
           </p>
         </div>
       </div>
