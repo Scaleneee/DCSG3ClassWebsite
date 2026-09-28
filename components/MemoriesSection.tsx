@@ -15,6 +15,8 @@ type MemoriesSectionProps = {
   memories: Memory[];
 };
 
+const flashGifSource = "./assets/flash.gif";
+
 type ControlIconProps = {
   name: "back" | "play" | "pause" | "next";
 };
@@ -47,7 +49,7 @@ export function MemoriesSection({ memories }: MemoriesSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const copyRef = useRef<HTMLDivElement>(null);
-  const flashRef = useRef<HTMLDivElement>(null);
+  const flashRef = useRef<HTMLImageElement>(null);
   const channelTimelineRef = useRef<gsap.core.Timeline | null>(null);
   const memoryIndexRef = useRef(0);
   const [activeMemoryIndex, setActiveMemoryIndex] = useState(0);
@@ -84,6 +86,11 @@ export function MemoriesSection({ memories }: MemoriesSectionProps) {
         setActiveMemoryIndex(nextIndex);
         return;
       }
+
+      // Reset the cached GIF so its static sequence starts from the beginning.
+      flash.removeAttribute("src");
+      void flash.offsetWidth;
+      flash.src = flashGifSource;
 
       channelTimelineRef.current?.kill();
       channelTimelineRef.current = gsap
@@ -198,7 +205,14 @@ export function MemoriesSection({ memories }: MemoriesSectionProps) {
                   <img ref={imageRef} src={currentMemory.photo} alt={`${currentMemory.title} memory`} draggable={false} />
                   <div aria-hidden="true" className="crt-vignette" />
                   <div aria-hidden="true" className="crt-scanlines" />
-                  <div ref={flashRef} aria-hidden="true" className="crt-channel-flash" />
+                  <img
+                    ref={flashRef}
+                    src={flashGifSource}
+                    alt=""
+                    aria-hidden="true"
+                    className="crt-channel-flash"
+                    draggable={false}
+                  />
                 </div>
               </div>
 

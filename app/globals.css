@@ -431,11 +431,12 @@ html.lenis body {
 
 .crt-channel-flash {
   z-index: 4;
-  background:
-    linear-gradient(to bottom, transparent 46%, rgb(255 255 255 / 96%) 49% 51%, transparent 54%),
-    repeating-radial-gradient(circle at 30% 45%, #fff 0 1px, #b9c8bf 1px 2px, #202522 2px 4px);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #020403;
   opacity: 0;
-  mix-blend-mode: screen;
+  filter: contrast(1.08);
 }
 
 .crt-dashboard {
