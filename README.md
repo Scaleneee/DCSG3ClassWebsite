@@ -10,14 +10,4 @@ Live site: https://scaleneee.github.io/DCSG3ClassWebsite/
 
 ## Built With
 
-- Next.js 16
-- React 19
-- TypeScript
-- Tailwind CSS 4
-- GSAP
-- Lenis
-- Fontsource
-- JSON
-- GitHub Actions
-- GitHub Pages
-- Node.js and npm
+- Codex (HAHAH)
